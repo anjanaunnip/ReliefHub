@@ -1,0 +1,308 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ReliefHub</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<style>
+    body { background: #fff; font-family: 'Segoe UI', sans-serif; scroll-behavior: smooth; }
+
+    /* Navbar styling */
+    .custom-navbar {border-bottom: 1px solid #eee; padding-left:40px; padding-right:40px;}
+    .navbar-brand {margin-left:25px; font-size: 1.5rem; font-weight: bold; display: flex; align-items: center;}
+    .navbar-brand span:first-child { color: #ff5e3a; }
+    .navbar-brand span:last-child { color: #000; }
+    .navbar .navbar-nav {margin: auto;}
+    .navbar .nav-link {font-size: 1.05rem; color: #444 !important; margin: 0 8px;}
+    .navbar .nav-link:hover {color: #b51a1a !important;}
+    .navbar-btns {display: flex; align-items: center;}
+    .btn-login-custom, .btn-get-started {font-size: 14px; padding: 6px 16px;}
+    .btn-get-started {background: #d32f2f; color: #fff;}
+    .btn-get-started:hover {background: #ae1417;}
+
+    /* Buttons and how-step hover: scale + shadow */
+    .btn, .how-step {
+        transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+    .btn:hover, .how-step:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    /* Stats numbers: scale only (no box shadow) */
+    .stats-number {
+        transition: transform 0.15s ease;
+    }
+    .stats-number:hover {
+        transform: scale(1.05);
+    }
+
+    /* Hero styling */
+    .hero-bg {
+        background: linear-gradient(90deg, #f23d3079, #f23d307b),
+        url("{% static 'images/home.jpg' %}") center/cover;
+        padding: 98px 0 56px 0;
+    }
+
+
+    /* Stats Section */
+    .stats-section .stats-number {
+        font-size:1.9rem; font-weight:800; color: #D32F2F;
+        display:inline-block; cursor:pointer;
+    }
+    .stats-section .stats-label {color: #2f2f2f;}
+
+    /* How It Works numbers */
+    .how-step {
+        background:#bc1f27; color:#fff; font-weight:bold; font-size:1.5rem;
+        width:40px; height:40px; border-radius:50%;
+        display:flex; justify-content:center; align-items:center;
+        margin-bottom:10px; cursor:pointer;
+    }
+    .how-step:hover { background:#a01414; }
+
+    /* Platform Features equal cards */
+    .hover-scale {
+        transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+    .hover-scale:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+    .row > .col-md-4.d-flex > .hover-scale {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+    .row > .col-md-4.d-flex > .hover-scale > div:last-child {
+        flex-grow: 1;
+    }
+</style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white custom-navbar">
+    <a class="navbar-brand" href="#home">
+        <img src="https://img.icons8.com/fluency/48/like.png" style="width:26px;height:26px;margin-right:8px;" alt="Logo">
+        <span>Relief</span><span>Hub</span>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navMain" aria-controls="navMain" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navMain">
+        <ul class="navbar-nav mx-auto">
+            <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+            <li class="nav-item"><a class="nav-link" href="#how-it-works">How It Works</a></li>
+            <li class="nav-item"><a class="nav-link" href="#impact">Impact</a></li>
+        </ul>
+        <div class="navbar-btns ml-auto">
+            <a href="login/">
+                <button class="btn btn-outline-secondary btn-login-custom mr-2">Login</button>
+            </a>
+            <a href="register/">
+                <button class="btn btn-get-started">Get Started</button>
+            </a>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero Section -->
+<div id="home" class="hero-bg">
+    <div class="container text-center text-white">
+        <h1 style="font-size:2.5rem;font-weight:700; line-height:1.13;">Disaster Relief<br>
+            <span style="color: #FFD600;">Coordination Platform</span></h1>
+        <p style="font-size: 1.09rem; font-style: italic; opacity: 0.83; margin-top: 13px;">
+            "When disasters strike, hope unites us faster than fear divides us."
+        </p>
+        <div class="mt-4">
+            <a href="login/"><button class="btn btn-danger btn-lg mr-2">Donate</button></a>
+            
+            <a href="login/"><button class="btn btn-warning btn-lg" style="color:#fff;background:#e6513e;">Request Emergency Aid</button></a>
+        </div>
+    </div>
+</div>
+
+
+<!-- Stats Section -->
+<div class="container stats-section my-4">
+    <div class="row text-center">
+        <div class="col-md-3 col-6">
+            <div class="stats-number">10,000+</div>
+            <div class="stats-label">Lives Helped</div>
+        </div>
+        <div class="col-md-3 col-6">
+            <div class="stats-number">500+</div>
+            <div class="stats-label">Active Donors</div>
+        </div>
+        <div class="col-md-3 col-6">
+            <div class="stats-number">150+</div>
+            <div class="stats-label">Relief Camps</div>
+        </div>
+        <div class="col-md-3 col-6">
+            <div class="stats-number">95%</div>
+            <div class="stats-label">Success Rate</div>
+        </div>
+    </div>
+</div>
+
+<!-- Platform Features -->
+<div style="background: linear-gradient(180deg, #fff5f0 0%, #f5e8e6 100%);padding:44px 0 36px 0;">
+    <div class="container text-center">
+        <span style="font-size:13px;background:#f8c3b8;color:#81232c;padding:3px 11px;border-radius:18px;">Platform Features</span>
+        <h2 style="margin:20px 0;font-weight:bold;">Three Integrated Modules</h2>
+        <p style="font-size: 1.1rem;color: #495057;max-width:800px;margin:0 auto 40px auto;line-height:1.5;">
+            Our platform serves admins, donors, and relief camps with specialized tools for efficient disaster response coordination.
+        </p>
+        <div class="row">
+            <div class="col-md-4 col-12 mb-3 d-flex">
+                <div class="p-4 border rounded bg-white hover-scale">
+                    <img src="https://img.icons8.com/color/48/admin-settings-male.png" style="width:42px;height:42px;" alt="Admin Control Center Icon">
+                    <h5 class="font-weight-bold mt-2">Admin Control Center</h5>
+                    <div style="color:#7f2433;font-size:1.05rem;margin-top:5px;">
+                        Manage donations, requests & allocation with real-time tracking.
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-12 mb-3 d-flex">
+                <div class="p-4 border rounded bg-white hover-scale">
+                    <img src="https://img.icons8.com/color/48/handshake.png" style="width:42px;height:42px;" alt="Donor & Volunteer Portal Icon">
+                    <h5 class="font-weight-bold mt-2">Donor & Volunteer Portal</h5>
+                    <div style="color:#7f2433;font-size:1.05rem;margin-top:5px;">
+                        Easy donations with category selection & status tracking.
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-12 mb-3 d-flex">
+                <div class="p-4 border rounded bg-white hover-scale">
+                    <img src="https://img.icons8.com/color/48/hospital-room.png" style="width:42px;height:42px;" alt="Relief Camp Management Icon">
+                    <h5 class="font-weight-bold mt-2">Relief Camp Management</h5>
+                    <div style="color:#7f2433;font-size:1.05rem;margin-top:5px;">
+                        Submit urgent requests, track supplies, and confirm deliveries.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- How It Works -->
+<div id="how-it-works" class="container-fluid" style="background:#fff;padding:46px 0;">
+    <div class="container text-center">
+        <span style="display:inline-block;background:#FFD6D6;border-radius:15px;color:#b03534;font-size:0.93rem;padding:4px 12px;">How It Works</span>
+        <h3 style="font-weight:800;margin:14px 0;">Simple 4-Step Process</h3>
+        <p style="color:#3c474c;font-size:1.11rem;margin-bottom:38px;">From registration to delivery confirmation, our streamlined process ensures efficient resource allocation.</p>
+        <div class="row justify-content-center">
+            <div class="col-lg-3 col-md-6 col-12 mb-4">
+                <div class="d-flex flex-column align-items-center">
+                    <span class="how-step">1</span>
+                    <h6 class="font-weight-bold mt-2">Register & Verify</h6>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-12 mb-4">
+                <div class="d-flex flex-column align-items-center">
+                    <span class="how-step">2</span>
+                    <h6 class="font-weight-bold mt-2">Submit & Match</h6>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-12 mb-4">
+                <div class="d-flex flex-column align-items-center">
+                    <span class="how-step">3</span>
+                    <h6 class="font-weight-bold mt-2">Coordinate & Deliver</h6>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-12 mb-4">
+                <div class="d-flex flex-column align-items-center">
+                    <span class="how-step">4</span>
+                    <h6 class="font-weight-bold mt-2">Confirm & Report</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Impact / CTA -->
+<div id="impact" class="container-fluid" style="background: linear-gradient(90deg, #f44336 0%, #d32f2f 100%);padding:50px 0;text-align:center;">
+    <div class="container">
+        <h2 style="color:#fff;font-weight:800;font-size:2rem;">Ready to Make a Difference?</h2>
+        <div style="color:#ffd6d6;font-size:1.12rem;margin-bottom:27px;">
+            Join thousands of volunteers, donors, and relief organizations working together.
+        </div>
+        <a href="register/">
+  <button class="btn btn-warning mr-3" style="background:#ffd600;color:#1d2024;font-weight:bold;">
+    Start Helping Today
+  </button>
+</a>
+
+<a href="login/">
+  <button class="btn btn-danger" style="font-weight:500;">
+    Already a Member?
+  </button>
+</a>
+
+    </div>
+</div>
+
+<!-- Full Footer Content -->
+<footer style="background:#151a24;color:#e8eaed;padding-top:46px;">
+  <div class="container">
+    <div class="row mb-4">
+      <div class="col-lg-4 mb-4">
+        <h5 style="color:#d32f2f;font-weight:bold;">
+          <span style="font-size:20px;">&#10084;</span> ReliefHub
+        </h5>
+        <p style="color:#afb3b8;">
+          ReliefHub connects communities during disasters, ensuring resources reach those who need them most through intelligent coordination and real-time tracking.
+        </p>
+        <div style="color:#fff;font-size:0.97rem;">
+          <div><span style="color:#FFD600;">●</span> Available 24/7 during emergencies</div>
+          <div><span style="color:#FFD600;">●</span> Emergency Hotline: <b>1-800-RELIEF</b></div>
+          <div><span style="color:#FFD600;">●</span> contact@reliefhub.org</div>
+        </div>
+      </div>
+      <div class="col-lg-4 mb-4">
+        <h6 style="color:#ffd600;font-weight:600;">Platform</h6>
+        <ul class="list-unstyled" style="color:#BABFC4;">
+          <li>For Donors</li>
+          <li>For Relief Camps</li>
+          <li>For Administrators</li>
+          <li>API Documentation</li>
+          <li>Mobile App</li>
+        </ul>
+      </div>
+      <div class="col-lg-4 mb-4">
+        <h6 style="color:#ffd600;font-weight:600;">Support</h6>
+        <ul class="list-unstyled" style="color:#BABFC4;">
+          <li>Help Center</li>
+          <li>Emergency Contact</li>
+          <li>Community Guidelines</li>
+          <li>Privacy Policy</li>
+          <li>Terms of Service</li>
+        </ul>
+      </div>
+    </div>
+    <div style="width:100%;margin-bottom:16px;">
+      <div class="rounded" style="padding:10px 22px;background:#b81217;color:#ffd6d6;font-size:1rem;width:100%;font-weight:500;">
+        <span style="font-size:18px;font-weight:600;">&#9888;</span> Emergency Services: For immediate help, call your local emergency number (911, 112, etc.)
+      </div>
+    </div>
+    <hr style="border-top:1.5px solid #2d2e3b;">
+    <div class="d-flex justify-content-between align-items-center py-2">
+      <div style="color:#bdbcbc;font-size:0.98rem;">© 2024 ReliefHub. All rights reserved. Built with <span style="color:#d32f2f;font-weight:bold;">&#10084;</span> for humanity.</div>
+      <div style="color:#bdbcbc;font-size:0.98rem;">
+        <span>Privacy</span> &nbsp; | &nbsp; <span>Terms</span> &nbsp; | &nbsp; <span>Accessibility</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Bootstrap and dependencies scripts -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" crossorigin="anonymous"></script>
+
+</body>
+</html>

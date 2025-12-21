@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Pay Now - ReliefHub</title>
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      margin: 0;
+      padding: 40px;
+      text-align: center;
+    }
+    .payment-box {
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      max-width: 500px;
+      margin: auto;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    h2 { color: #333; }
+    p { margin: 8px 0; }
+    #rzp-button {
+      background: #3399cc;
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 20px;
+    }
+    #rzp-button:hover {
+      background: #267aa1;
+    }
+  </style>
+</head>
+<body>
+  <div class="payment-box">
+  <h2>Pay Now for {{ camp_request.item.name }}</h2>
+  <p>Relief Camp: <strong>{{ camp_request.camp.name }}</strong></p>
+  <p>Quantity: {{ camp_request.quantity }} {{ camp_request.unit }}</p>
+  <p>Price per unit: ₹{{ unit_price }}</p>
+  <p><strong>Total Amount: ₹{{ total_display }}</strong></p>
+
+  <button id="rzp-button">Pay Now</button>
+</div>
+
+
+  <script>
+    // ✅ Helper function to get CSRF token from cookies
+    function getCookie(name) {
+      let cookieValue = null;
+      if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+          const cookie = cookies[i].trim();
+          if (cookie.substring(0, name.length + 1) === (name + '=')) {
+            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+            break;
+          }
+        }
+      }
+      return cookieValue;
+    }
+    const csrftoken = getCookie('csrftoken');
+
+    var options = {
+        "key": "{{ razorpay_key }}",
+        "amount": "{{ amount }}",
+        "currency": "{{ currency }}",
+        "name": "ReliefHub",
+        "description": "Donation Payment",
+        "order_id": "{{ order_id }}",
+        "handler": function (response){
+            // Send payment details to backend
+            fetch("{% url 'payment_success' %}", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                    "X-CSRFToken": csrftoken
+                },
+                body: `razorpay_payment_id=${response.razorpay_payment_id}&razorpay_order_id=${response.razorpay_order_id}&razorpay_signature=${response.razorpay_signature}`
+            }).then(res => res.json()).then(data => {
+                alert(data.message);
+                if (data.status === "success") {
+                    window.location.href = "{% url 'donation_thankyou' %}";
+                }
+            });
+        },
+        "theme": {"color": "#3399cc"}
+    };
+    var rzp1 = new Razorpay(options);
+    document.getElementById('rzp-button').onclick = function(e){
+        rzp1.open();
+        e.preventDefault();
+    }
+  </script>
+</body>
+</html>

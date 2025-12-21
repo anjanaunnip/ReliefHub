@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.py[cod]
+
+# Database
+*.sqlite3
+
+# Virtual environment
+.Renv/
+env/
+venv/
+Include/
+Lib/
+Scripts/
+pyvenv.cfg
+
+# Django
+*.log
+media/
+staticfiles/
+.env
+razorpay.env
+
+# OS
+.DS_Store
+Thumbs.db

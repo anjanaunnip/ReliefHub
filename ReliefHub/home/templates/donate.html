@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Relief Hub Donation Categories</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body { background: #fdeee7 !important; }
+    #navbar-bar { display: block; }
+    .navbar { background: #fff; min-height: 55px; box-shadow: 0 1px 10px rgba(100, 100, 100, 0.03);}
+    .navbar-brand img { height: 32px; margin-right: 4px;}
+    .brand-text { font-weight: bold; color: #e53e3e; font-size:1.18rem;}
+    .donor-welcome { margin-left: 12px; color: #8d8383; font-size: .95rem;}
+    .main-header {margin-top: 38px;margin-bottom:2px;font-weight:500;letter-spacing:.8px;color: #302f2f;text-align:center;}
+    .main-subheader {font-size:1.04rem;color:#a06643;margin-bottom:34px;text-align:center;}
+    .card-category {background:#fff;border:none;border-radius:14px;box-shadow:0 2px 15px rgba(227,150,100,0.09);margin-bottom:18px;transition:transform .1s;}
+    .card-category:hover {box-shadow:0 4px 18px rgba(227,150,100,0.20);}
+    .category-image { background: #111; border-radius:12px 12px 0 0; height:110px; display:flex;align-items:center;justify-content:center; }
+    .category-image i {font-size:55px;color:#fff;}
+    .category-image img {max-height:65px;}
+    .card-title {font-size:1.10rem;font-weight:500;margin-top:14px;margin-bottom:4px;color:#fff;}
+    .card-subtext {font-size:.90rem;margin-bottom:10px;color:#e7e7e7;}
+    .select-btn {
+      color:#e53e3e;
+      font-size:.96rem;
+      font-weight:500;
+      background: none;
+      border: none;
+      width: 100%;
+      text-align: left;
+      padding: 0.4rem 0.7rem;
+      outline: none;
+      margin: 0.6rem 0 0.2rem 0;
+      border-radius:5px;
+      transition:background 0.12s;
+    }
+    .select-btn:focus, .select-btn:hover {
+      background: #ffebe6;
+      color:#c72a1a;
+    }
+    /* Details Page Styles */
+    .detail-container {
+      max-width:600px;
+      margin: 40px auto 0 auto;
+      background: #fff;
+      border-radius:18px;
+      box-shadow: 0 3px 24px rgba(230,140,100,0.16);
+      overflow:hidden;
+      padding-bottom: 30px;
+    }
+    .detail-header {
+      background:#111;
+      color:#fff;
+      padding:35px 0 28px 0;
+      font-size:1.45rem;
+      font-weight: 600;
+      text-align: center;
+      border-radius: 18px 18px 0 0;
+      margin-bottom:0;
+    }
+    .detail-body {padding:26px 32px 0 32px;}
+    .form-label {font-size:1.06rem; color:#7a5454;margin-bottom:9px;}
+    .form-select, .form-control, .form-control:disabled {
+      border: 2px solid #f5b1ac !important;
+      font-size:1rem;
+      color: #a16060;
+      background:#fff;
+      height:42px;
+      margin-bottom: 24px;
+    }
+    .form-select:focus, .form-control:focus {border-color:#e53e3e;box-shadow:0 0 0 2px rgba(229,62,62,0.15);}
+    .detail-actions {
+      display:flex;
+      gap:10px;
+      padding-left: 0;
+      padding-top:4px;
+    }
+    .btn-pink {
+      background: #ffdbd2;
+      color: #c66852;
+      border: 1px solid #ffccb9;
+      font-weight: 500;
+      border-radius: 7px;
+      padding: 7px 18px;
+      font-size: 1.05rem;
+      transition: 0.13s;
+    }
+    .btn-pink i {margin-right:6px;}
+    .btn-pink:hover { background: #ffc3ab; color: #bf3923; }
+    .btn-outline-pink {
+      color: #c66852;
+      background:transparent;
+      border: 1.5px solid #ffd9cc;
+      padding: 7px 18px;
+      border-radius: 7px;
+      font-size:1.05rem;
+      font-weight:500;
+      transition:.13s;
+    }
+    .btn-outline-pink:hover {
+      background: #ffdfd1;
+      color: #b94d2e;
+    }
+    .back-arrow {
+      margin-left: 22px; color: #744636; font-size: 1.07rem;text-decoration:none;
+      vertical-align: middle;
+    }
+    .back-arrow i {font-size: 1.12rem; margin-right: 6px;}
+    /* Final Donation Window */
+    .donation-form-container {
+      max-width: 540px;
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 3px 24px rgba(230,140,100,0.16);
+      margin: 38px auto 0 auto;
+      padding:28px 32px 28px 32px;
+      position: relative;
+    }
+    .donation-form-title {
+      font-size: 1.20rem;
+      color: #e36450;
+      font-weight: 600;
+      margin-bottom: 7px;
+      margin-top: 6px;
+    }
+    .donation-form-subtitle {
+      font-size: 1.01rem;
+      color: #955c4e;
+      margin-bottom: 18px;
+    }
+    .donation-form label {
+      font-size: 1.05rem;
+      color: #895a48;
+    }
+    .donation-form .form-control, .donation-form .form-select {
+      border: 2px solid #f5b1ac !important;
+      background: #fff !important;
+      color: #a16060;
+      margin-bottom: 18px;
+    }
+    .donation-form .form-control:focus, .donation-form .form-select:focus {
+      border-color: #e53e3e !important;
+      box-shadow: 0 0 0 2px rgba(229,62,62,0.12) !important;
+      color: #9e3535;
+    }
+    .donation-form .form-text {
+      margin-top:-8px;
+      color: #c89281 !important;
+      font-size: 0.97rem;
+      margin-bottom: 12px;
+    }
+    .donation-form .btn {
+      min-width: 100%;
+      font-size: 1.05rem;
+    }
+    /* Responsive */
+    @media (max-width: 650px) {
+      .donation-form-container {
+        max-width:96vw;
+        padding:12px 6vw;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body>
+<!-- Navbar (ONLY VISIBLE ON MAIN PAGE) -->
+<div id="navbar-bar">
+  <nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+  <span class="donor-welcome">Welcome, Donor</span>
+  <a class="navbar-brand mx-auto" href="#">
+    <img src="https://img.icons8.com/color/48/000000/like--v1.png" alt="Relief Hub Logo">
+    <span class="brand-text">Relief <span style="color:#f89a8c;">Hub</span></span>
+  </a>
+  <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+  </div> <!-- closes .container-fluid -->
+  </nav>
+</div>
+
+
+<!-- Main Grid Page -->
+<div id="main-page">
+  <div class="container">
+    <h2 class="main-header">What would you like to donate today?</h2>
+    <div class="main-subheader">
+      Select a category below to start your donation request
+    </div>
+    <div class="row row-cols-1 row-cols-md-3 g-3 justify-content-center" id="category-grid"></div>
+  </div>
+</div>
+
+<!-- Category Detail Page (NO NAVBAR) -->
+<div id="detail-page" style="display: none;">
+  <nav class="d-flex justify-content-between align-items-center" style="background:#fff;height:55px;">
+    <a href="#" class="back-arrow" onclick="showMainPage();return false;"><i class="fas fa-arrow-left"></i> Back</a>
+    <a class="navbar-brand mx-auto" href="#">
+      <img src="https://img.icons8.com/color/48/000000/like--v1.png" alt="Relief Hub Logo" style="height:28px;margin-right:5px;">
+      <span class="brand-text">Relief <span style="color:#f89a8c;">Hub</span></span>
+    </a>
+    <a href="#" class="me-3" style="font-size:1rem;color:#9b8176;text-decoration:none;">Home</a>
+  </nav>
+  <div class="detail-container" id="detail-container">
+    <div class="detail-header" id="detail-category-title"></div>
+    <div class="detail-body">
+      <label for="category-select" class="form-label">Select specific item to donate:</label>
+      <select class="form-select" id="category-select"></select>
+      <div class="detail-actions mt-2">
+        <button class="btn btn-pink" id="continue-btn">
+          <i class="fas fa-plus"></i>Continue to Donation Details
+        </button>
+        <button class="btn btn-outline-pink" onclick="showMainPage();">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Final Donation Details Form Step (NO NAVBAR) -->
+<div id="donation-form-page" style="display:none;">
+  <nav class="d-flex justify-content-between align-items-center" style="background:#fff;height:55px;">
+    <a href="#" class="back-arrow" onclick="showDetailPage(lastCatKey,true);return false;"><i class="fas fa-arrow-left"></i> Back</a>
+    <span></span>
+    <a href="{% url 'donourdashboard' %}" class="me-3" style="font-size:1rem;color:#9b8176;text-decoration:none;">Home</a>
+  </nav>
+  <div class="donation-form-container mt-3">
+    <div class="donation-form-title">Complete Your Donation</div>
+    <div class="donation-form-subtitle" id="donation-summary"></div>
+<form method="POST">
+  {% csrf_token %}
+
+  <div class="row mb-3">
+    <div class="col-md-6">
+      <label class="form-label">Quantity *</label>
+      <input type="number" min="1" name="quantity" class="form-control" required>
+    </div>
+    <div class="col-md-6">
+      <label class="form-label">Unit *</label>
+      <select name="unit" class="form-select" required>
+        <option value="">Select unit</option>
+        <option>kg</option>
+        <option>liters</option>
+        <option>packs</option>
+        <option>boxes</option>
+        <option>pieces</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Expiry Date *</label>
+    <input type="date" name="expiry_date" class="form-control" required>
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Pickup Location *</label>
+    <input type="text" name="pickup_location" class="form-control" required>
+  </div>
+
+  <div class="row mb-3">
+    <div class="col-md-6">
+      <label class="form-label">Contact Person *</label>
+      <input type="text" name="contact_person" class="form-control" required>
+    </div>
+    <div class="col-md-6">
+      <label class="form-label">Phone Number *</label>
+      <input type="tel" name="phone_number" class="form-control" required>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Preferred Pickup Time *</label>
+    <select name="preferred_pickup_time" class="form-select" required>
+      <option value="">Select time</option>
+      <option>Morning (8am - 11am)</option>
+      <option>Noon (12pm - 3pm)</option>
+      <option>Evening (4pm - 7pm)</option>
+    </select>
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Urgency Level *</label>
+    <select name="urgency_level" class="form-select" required>
+      <option value="">Select urgency</option>
+      <option>Flexible</option>
+      <option>Within 2 days</option>
+      <option>Urgent</option>
+    </select>
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Special Instructions</label>
+    <textarea name="special_instructions" class="form-control" rows="3"></textarea>
+  </div>
+
+  <div class="d-grid">
+    <button type="submit" class="btn btn-danger btn-lg rounded-pill shadow-sm">
+    Submit Donation Request
+    </button>
+  </div>
+</form>
+
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+// Category data
+const categories = [
+  {
+    key:'baby',
+    name:'Baby Food & Formula',
+    icon:'<i class="fa-solid fa-baby"></i>',
+    items:[
+      "Baby formula (0-6 months)",
+      "Baby formula (6+ months)",
+      "Baby food purees (4-6 months)",
+      "Baby food purees (6+ months)",
+      "Baby cereals",
+      "Baby snacks & finger foods"
+    ]
+  },
+  {
+    key:'clothing',
+    name:'Clothing & Apparel',
+    icon:'<i class="fa-solid fa-shirt"></i>',
+    items:[
+      "Men's Clothing",
+      "Women's Clothing",
+      "Children's Clothing",
+      "Winter Jackets",
+      "Blankets & Shawls",
+      "Footwear"
+    ]
+  },
+  {
+    key:'medical',
+    name:'Medical Supplies',
+    icon:'<i class="fa-solid fa-kit-medical"></i>',
+    items:[
+      "First Aid Kits",
+      "Pain Relief Medicines",
+      "Bandages & Dressings",
+      "Thermometers",
+      "Sanitary Pads",
+      "Face Masks"
+    ]
+  },
+  {
+    key:'hygiene',
+    name:'Hygiene & Sanitary Items',
+    icon:'<i class="fa-solid fa-soap"></i>',
+    items:[
+      "Soap",
+      "Sanitizer",
+      "Tissue Paper",
+      "Toothpaste & Brushes",
+      "Hand Towels",
+      "Toilet Paper"
+    ]
+  },
+  {
+    key:'beverages',
+    name:'Water & Beverages',
+    icon:'<i class="fa-solid fa-glass-water"></i>',
+    items:[
+      "Bottled Water",
+      "Juice Boxes",
+      "Milk Cartons",
+      "Electrolyte Drinks",
+      "Tea/Coffee Packets",
+      "Energy Drinks"
+    ]
+  },
+  {
+  key:'canned',
+  name:'Canned & Dry Foods',
+  icon:'<i class="fa-solid fa-boxes-stacked"></i>',
+  items:[
+    "Canned Beans",
+    "Canned Vegetables",
+    "Dry Rice",
+    "Dry Lentils",
+    "Pasta",
+    "Biscuits"
+  ]
+},
+  {
+    key:'shelter',
+    name:'Shelter & Bedding',
+    icon:'<i class="fa-solid fa-bed"></i>',
+    items:[
+      "Blankets",
+      "Pillows",
+      "Sleeping Bags",
+      "Tents",
+      "Bedsheets",
+      "Foam Mats"
+    ]
+  },
+  {
+    key:'education',
+    name:'Educational Supplies',
+    icon:'<i class="fa-solid fa-book-open"></i>',
+    items:[
+      "Notebooks",
+      "Pens & Pencils",
+      "School Bags",
+      "Geometry Kits",
+      "Drawing Books",
+      "Crayons"
+    ]
+  },
+  {
+    key:'cleaning',
+    name:'Cleaning Supplies',
+    icon:'<i class="fa-solid fa-broom"></i>',
+    items:[
+      "Detergent Powder",
+      "Mops",
+      "Toilet Cleaners",
+      "Brushes",
+      "Sanitizing Wipes",
+      "Dishwashing Liquid"
+    ]
+  }
+];
+
+let lastCatKey = '';
+let lastItemText = '';
+
+// Render main page cards
+function renderCategories() {
+  let grid = document.getElementById("category-grid");
+  grid.innerHTML = "";
+  categories.forEach((cat, idx) => {
+    grid.innerHTML += `
+    <div class="col">
+      <div class="card card-category h-100">
+        <div class="category-image">${cat.icon}</div>
+        <div class="card-body" style="background: #000; border-radius:0 0 14px 14px;">
+          <div class="card-title" style="color:#fff;">${cat.name}</div>
+          <div class="card-subtext">${cat.items.length} items available</div>
+          <div class="mt-2">
+            <button class="select-btn" onclick="showDetailPage('${cat.key}');event.stopPropagation();">
+              Select Category
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    `;
+  });
+}
+
+// Show detail page for selected category
+function showDetailPage(catKey, returnFromForm=false) {
+  document.getElementById('navbar-bar').style.display = 'none';
+  document.getElementById('main-page').style.display = 'none';
+  document.getElementById('donation-form-page').style.display = 'none';
+  document.getElementById('detail-page').style.display = 'block';
+  document.getElementById('detail-container').style.display = 'block';
+
+  // Find the selected category data
+  const cat = categories.find(c => c.key === catKey);
+  if(!cat) return;
+  lastCatKey = cat.key; // for back button in donation form
+
+  // Set black card header title
+  document.getElementById('detail-category-title').innerText = cat.name;
+
+  // Populate select dropdown with the 6 items
+  let select = document.getElementById('category-select');
+  select.innerHTML = `<option value="">Choose an item...</option>`;
+  cat.items.forEach(item => {
+    select.innerHTML += `<option value="${item}">${item}</option>`;
+  });
+
+  // Continue button logic
+  document.getElementById('continue-btn').onclick = function() {
+    if(select.value === "") {
+      select.classList.add("is-invalid");
+      select.focus();
+      return;
+    } else {
+      select.classList.remove("is-invalid");
+      showDonationForm(cat.name, select.value);
+    }
+  };
+  select.onchange = () => select.classList.remove("is-invalid");
+  if(returnFromForm && lastItemText) select.value = lastItemText;
+}
+
+// Show donation form page
+function showDonationForm(categoryName, itemText) {
+  lastItemText = itemText;
+  document.getElementById('navbar-bar').style.display = 'none';
+  document.getElementById('main-page').style.display = 'none';
+  document.getElementById('detail-page').style.display = 'none';
+  document.getElementById('donation-form-page').style.display = 'block';
+
+  // Show summary above form fields
+  document.getElementById('donation-summary').innerHTML =
+    `Please provide details about your donation: <b>${categoryName} - ${itemText}</b>`;
+
+  // Reset form
+  document.getElementById('donation-form').reset();
+
+  
+}
+
+// Show main page, restore navbar
+function showMainPage() {
+  document.getElementById('donation-form-page').style.display = 'none';
+  document.getElementById('detail-page').style.display = 'none';
+  document.getElementById('main-page').style.display = 'block';
+  document.getElementById('navbar-bar').style.display = 'block';
+}
+
+renderCategories();
+</script>
+</body>
+</html>
