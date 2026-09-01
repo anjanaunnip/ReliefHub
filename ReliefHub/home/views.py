@@ -317,8 +317,8 @@ def new_requests(request):
         if category_id and item_id:
             category = get_object_or_404(DonationCategory, id=category_id)
             item = get_object_or_404(DonationItem, id=item_id)
-            quantity_requested = int(request.POST.get("quantity") or 0)
-            people_count = int(request.POST.get("people") or 0)
+            quantity_requested = max(1, int(request.POST.get("quantity") or 1))
+            people_count = max(0, int(request.POST.get("people") or 0))
             
             camp_request = ReliefCampRequest.objects.create(
                 camp=camp_profile,
